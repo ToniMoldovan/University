@@ -1,112 +1,112 @@
 #include <iostream>
 using namespace std;
 
-//Declarare functii
-void show_matrix(int** matrix, int row, int col);
+void write_matrix(int** matrice, int rows, int col);
+void read_matrix(int** matrice, int rows, int col);
+void max_position_matrix(int** matrice, int rows, int col, int* max, int* pos_x, int* pos_y);
+void free_matrix(int** matrice, int rows, int col);
 
-void read_matrix(int** matrix, int row, int col);
-
-void get_matrix_max(int** matrix, int* max, int* pos_x, int* pos_y, int row, int col);
-
-void free_matrix(int** matrix, int row, int col);
 
 int main()
 {
-	int row, col, max = 0, position_x = 0, position_y = 0;
-	int* adr_max = &max;
-	int* adr_position_x = &position_x;
-	int* adr_position_y = &position_y;
+	int rows, col, maxim = 0, pos_x = 0, pos_y = 0;
 
+	int* adr_maxim = &maxim;
+	int* adr_pos_x = &pos_x;
+	int* adr_pos_y = &pos_y;
 
-	cout << "Introdu randuri: "; cin >> row;
+	cout << "raunduri: "; cin >> rows;
+	cout << "coloane: "; cin >> col;
 
-	cout << "Introdu coloane: "; cin >> col;
+	//Creare dinamica a matricei
 
-	int** matrix = new int* [row];
-
-	for (int i = 0; i < row; i++) 
+	int** matrix = new int* [rows];
+	for (int i = 0; i < rows; i++)
 	{
-		matrix[i] = new int[col]; 
+		matrix[i] = new int[col];
 	}
 
-	cout << endl;
+	//Adaugare elemente in matrice:
+	write_matrix(matrix, rows, col);
 
-	read_matrix(matrix, row, col);
-	show_matrix(matrix, row, col);
-	get_matrix_max(matrix, adr_max, adr_position_x, adr_position_y, row, col);
-	free_matrix(matrix, row, col);
+	//Afisare matrice
+	read_matrix(matrix, rows, col);
 
+	//Gasire maxim si pozitie:
+	max_position_matrix(matrix, rows, col, adr_maxim, adr_pos_x, adr_pos_y);
+	cout << "Maximul: " << *adr_maxim << endl;
+	cout << "Pozitia: [" << *adr_pos_x << "][" << *adr_pos_y << "]" << endl;
 
-	cin.get();
+	free_matrix(matrix, rows, col);
+
 
 	return 0;
 }
 
-void read_matrix(int** matrix, int row, int col)
+
+void write_matrix(int** matrice, int rows, int col)
 {
-	for (int i = 0; i < row; i++)
+
+	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < col; j++)
 		{
-			cout << "matrix[" << i << "][" << j << "] = ";
-			cin >> matrix[i][j];
-			cout << endl;
+			cout << "Element: [" << i << "][" << j << "] = ";
+			cin >> matrice[i][j];
 		}
+	}
+	cout << endl;
+
+}
+
+void read_matrix(int** matrice, int rows, int col)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < col; j++)
+		{
+			cout << matrice[i][j] << " ";
+		}
+		cout << endl;
 	}
 }
 
-
-void show_matrix(int** matrix, int row, int col)
+void max_position_matrix(int** matrice, int rows, int col, int* max, int* pos_x, int* pos_y)
 {
-	cout << "Afisare matrice:" << endl;
 
-	for (int i = 0; i < row; i++)
+	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < col; j++)
 		{
-			cout << matrix[i][j] << " ";
-		}
 
-		cout << "\n";
-	}
-}
-
-
-void get_matrix_max(int** matrix, int* max, int* pos_x, int* pos_y, int row, int col)
-{
-	
-	for (int i = 0; i < row; i++)
-	{
-		
-		for (int j = 0; j < col; j++)
-		{
-			if (*max < matrix[i][j])
+			if (*max < matrice[i][j])
 			{
-
-				*max = matrix[i][j];
-				*pos_x = i;
-				*pos_y = j;
+				*max = matrice[i][j]; //elementul de pe matrice[i][j] = 8, altfel spus, elementul de pe matrice[3][6] = 8
+				*pos_x = i; // i = 3 rand
+				*pos_y = j; // j = 6 coloana
 			}
 
 		}
-
 	}
 
-	//Afisare maxim si pozitii
-
-	cout << "Maximul: " << *max << endl << "Pozitia: [" << *pos_x << "][" << *pos_y << "]";
-
+	cout << "Am gasit maxim si pozitiile acestuia cu succes." << endl;
 
 }
 
-void free_matrix(int** matrix, int row, int col)
+void free_matrix(int** matrice, int rows, int col)
 {
-	for (int i = 0; i < row; i++)
+	for (int i = 0; i < rows; i++)
 	{
-		delete[] matrix[i];
+
+		for (int j = 0; j < col; j++)
+		{
+
+			delete[] matrice;
+
+		}
+
 	}
 
-	delete[] matrix;
+	matrice = NULL;
 
-	matrix = NULL;
 }
