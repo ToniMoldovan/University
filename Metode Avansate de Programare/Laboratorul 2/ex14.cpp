@@ -40,12 +40,13 @@ partea1:
 		}
 	}
 
-	cout << "Continua exercitiul. (apasa enter)"; getchar();
-
-
+	system("pause");
+	system("cls");
 
 partea2:
 
+	cout << "\x1B[34mPartea a 2-a\033[0m\t\t" << endl;
+	
 	ifstream input;
 	input.open("input.txt");
 
