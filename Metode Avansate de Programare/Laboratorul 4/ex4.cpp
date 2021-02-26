@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stdarg.h>
-#include <algorithm>
 using namespace std;
 
 void afisare_numere(int n, ...);
